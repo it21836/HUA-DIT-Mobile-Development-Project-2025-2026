@@ -1,0 +1,16 @@
+development_plan.md
+implementation_style.md
+
+# Gradle / Android Studio
+.gradle/
+local.properties
+*.iml
+.idea/
+
+# Build outputs
+/build/
+app/build/
+
+# Misc
+.DS_Store
+captures/
