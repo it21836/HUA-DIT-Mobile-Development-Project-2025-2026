@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import android.content.Intent
 import com.example.dailytasks.data.StatusDefaults
 import com.example.dailytasks.data.TaskEntity
 import com.example.dailytasks.data.TaskRepository
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         setupDefaults()
         setupTimePicker()
         setupSave()
+        setupSettings()
     }
 
     private fun setupDefaults() {
@@ -113,6 +115,12 @@ class MainActivity : AppCompatActivity() {
 
         selectedStartTime = LocalTime.now()
         updateTimeLabel(selectedStartTime)
+    }
+
+    private fun setupSettings() {
+        binding.openSettingsButton.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+        }
     }
 
     private fun updateTimeLabel(time: LocalTime) {
