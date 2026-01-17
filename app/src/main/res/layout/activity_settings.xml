@@ -13,7 +13,7 @@
             android:id="@+id/settingsTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Defaults"
+            android:text="@string/defaults_title"
             android:textAppearance="?attr/textAppearanceHeadline5"
             android:paddingBottom="12dp" />
 
@@ -21,14 +21,14 @@
             android:id="@+id/defaultDurationInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Default duration hours (>0)"
+            android:hint="@string/default_duration_hint"
             android:inputType="number" />
 
         <EditText
             android:id="@+id/defaultDifficultyInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Default difficulty 0-10"
+            android:hint="@string/default_difficulty_hint"
             android:inputType="number"
             android:layout_marginTop="8dp" />
 
@@ -36,7 +36,7 @@
             android:id="@+id/saveDefaultsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Save"
+            android:text="@string/save"
             android:layout_marginTop="16dp" />
 
     </LinearLayout>

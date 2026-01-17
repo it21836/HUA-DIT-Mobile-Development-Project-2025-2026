@@ -1,4 +1,20 @@
 <resources>
     <string name="app_name">DailyTasks</string>
+    <string name="view_tasks">View tasks</string>
+    <string name="save_task">Save task</string>
+    <string name="defaults_duration_difficulty">Defaults (duration/difficulty)</string>
+    <string name="start_time">Start time</string>
+    <string name="pick_time">Pick time</string>
+    <string name="short_name_hint">Short name (max 20)</string>
+    <string name="description_hint">Description (max 150)</string>
+    <string name="difficulty_hint">Difficulty 0-10</string>
+    <string name="duration_hint">Duration hours (&gt;0)</string>
+    <string name="location_hint">Location (optional)</string>
+    <string name="defaults_title">Defaults</string>
+    <string name="default_duration_hint">Default duration hours (&gt;0)</string>
+    <string name="default_difficulty_hint">Default difficulty 0-10</string>
+    <string name="save">Save</string>
+    <string name="tasks_title">Tasks</string>
+    <string name="task_details">Task details</string>
 </resources>
 

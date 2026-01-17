@@ -18,6 +18,12 @@
         <activity
             android:name=".SettingsActivity"
             android:exported="false" />
+        <activity
+            android:name=".TaskListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TaskDetailsActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

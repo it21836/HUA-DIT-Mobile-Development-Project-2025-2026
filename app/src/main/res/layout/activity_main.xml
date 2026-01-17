@@ -22,7 +22,7 @@
             android:id="@+id/shortNameInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Short name (max 20)"
+            android:hint="@string/short_name_hint"
             android:maxLength="20"
             android:inputType="textPersonName" />
 
@@ -30,7 +30,7 @@
             android:id="@+id/descriptionInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Description (max 150)"
+            android:hint="@string/description_hint"
             android:maxLength="150"
             android:minLines="2"
             android:gravity="top"
@@ -40,21 +40,21 @@
             android:id="@+id/difficultyInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Difficulty 0-10"
+            android:hint="@string/difficulty_hint"
             android:inputType="number" />
 
         <EditText
             android:id="@+id/durationInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Duration hours (>0)"
+            android:hint="@string/duration_hint"
             android:inputType="number" />
 
         <TextView
             android:id="@+id/startTimeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start time"
+            android:text="@string/start_time"
             android:paddingTop="12dp" />
 
         <LinearLayout
@@ -75,28 +75,35 @@
                 android:id="@+id/pickTimeButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pick time" />
+                android:text="@string/pick_time" />
         </LinearLayout>
 
         <EditText
             android:id="@+id/locationInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Location (optional)"
+            android:hint="@string/location_hint"
             android:inputType="text" />
 
         <Button
             android:id="@+id/saveButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Save task"
+            android:text="@string/save_task"
             android:layout_marginTop="16dp" />
 
         <Button
             android:id="@+id/openSettingsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Defaults (duration/difficulty)"
+            android:text="@string/defaults_duration_difficulty"
+            android:layout_marginTop="8dp" />
+
+        <Button
+            android:id="@+id/openListButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/view_tasks"
             android:layout_marginTop="8dp" />
 
     </LinearLayout>

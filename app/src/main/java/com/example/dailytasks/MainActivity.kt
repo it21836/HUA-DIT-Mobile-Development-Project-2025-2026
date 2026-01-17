@@ -1,11 +1,11 @@
 package com.example.dailytasks
 
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import android.content.Intent
 import com.example.dailytasks.data.StatusDefaults
 import com.example.dailytasks.data.TaskEntity
 import com.example.dailytasks.data.TaskRepository
@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         setupTimePicker()
         setupSave()
         setupSettings()
+        setupOpenList()
     }
 
     private fun setupDefaults() {
@@ -125,6 +126,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateTimeLabel(time: LocalTime) {
         binding.startTimeValue.text = time.format(timeFormatter)
+    }
+
+    private fun setupOpenList() {
+        binding.openListButton.setOnClickListener {
+            startActivity(Intent(this, TaskListActivity::class.java))
+        }
     }
 }
 
