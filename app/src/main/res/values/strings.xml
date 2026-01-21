@@ -16,5 +16,7 @@
     <string name="save">Save</string>
     <string name="tasks_title">Tasks</string>
     <string name="task_details">Task details</string>
+    <string name="complete_task">Mark as completed</string>
+    <string name="open_in_maps">Open in Maps</string>
 </resources>
 
