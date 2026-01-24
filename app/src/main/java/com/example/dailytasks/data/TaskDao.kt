@@ -45,5 +45,10 @@ interface TaskDao {
 
     @Query("DELETE FROM tasks WHERE date < :today")
     suspend fun deleteOlderThan(today: String)
+
+    @Query("SELECT * FROM tasks WHERE statusId != :completedId")
+    suspend fun getAllNotCompleted(
+        completedId: Int = StatusDefaults.COMPLETED
+    ): List<TaskEntity>
 }
 

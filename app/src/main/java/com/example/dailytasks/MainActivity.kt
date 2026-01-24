@@ -6,15 +6,20 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.example.dailytasks.data.StatusDefaults
 import com.example.dailytasks.data.TaskEntity
 import com.example.dailytasks.data.TaskRepository
 import com.example.dailytasks.data.TaskValidator
 import com.example.dailytasks.databinding.ActivityMainBinding
+import com.example.dailytasks.work.StatusUpdateWorker
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         setupSave()
         setupSettings()
         setupOpenList()
+        scheduleWorker()
     }
 
     private fun setupDefaults() {
@@ -132,6 +138,18 @@ class MainActivity : AppCompatActivity() {
         binding.openListButton.setOnClickListener {
             startActivity(Intent(this, TaskListActivity::class.java))
         }
+    }
+
+    private fun scheduleWorker() {
+        val request = PeriodicWorkRequestBuilder<StatusUpdateWorker>(
+            1, TimeUnit.HOURS
+        ).build()
+
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+            "status-updater",
+            ExistingPeriodicWorkPolicy.KEEP,
+            request
+        )
     }
 }
 
