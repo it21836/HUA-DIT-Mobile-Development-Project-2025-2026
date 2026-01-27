@@ -18,5 +18,9 @@
     <string name="task_details">Task details</string>
     <string name="complete_task">Mark as completed</string>
     <string name="open_in_maps">Open in Maps</string>
+    <string name="export_pending">Export pending</string>
+    <string name="export_success">Exported to: %1$s</string>
+    <string name="export_empty">No pending tasks to export</string>
+    <string name="export_error">Export failed</string>
 </resources>
 

@@ -2,6 +2,8 @@ package com.example.dailytasks
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Environment
+import android.widget.Toast
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -15,6 +17,7 @@ import com.example.dailytasks.data.TaskRepository
 import com.example.dailytasks.databinding.ActivityTaskListBinding
 import com.example.dailytasks.databinding.ItemTaskBinding
 import kotlinx.coroutines.launch
+import java.io.File
 
 class TaskListActivity : AppCompatActivity() {
 
@@ -34,6 +37,7 @@ class TaskListActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
 
+        setupExport()
         loadTasks()
     }
 
@@ -46,6 +50,47 @@ class TaskListActivity : AppCompatActivity() {
         lifecycleScope.launch {
             val tasks = repository.getPendingOrdered()
             adapter.submit(tasks)
+        }
+    }
+
+    private fun setupExport() {
+        binding.exportButton.setOnClickListener {
+            lifecycleScope.launch {
+                val tasks = repository.getPendingOrdered()
+                if (tasks.isEmpty()) {
+                    Toast.makeText(this@TaskListActivity, getString(R.string.export_empty), Toast.LENGTH_SHORT).show()
+                    return@launch
+                }
+                val dir = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) ?: filesDir
+                val file = File(dir, "pending_${System.currentTimeMillis()}.txt")
+                runCatching {
+                    file.printWriter().use { out ->
+                        tasks.forEach { task ->
+                            out.println(formatTaskLine(task))
+                        }
+                    }
+                }.onSuccess {
+                    Toast.makeText(this@TaskListActivity, getString(R.string.export_success, file.absolutePath), Toast.LENGTH_LONG).show()
+                }.onFailure {
+                    Toast.makeText(this@TaskListActivity, getString(R.string.export_error), Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun formatTaskLine(task: TaskEntity): String {
+        val status = statusLabel(task.statusId)
+        val loc = task.location ?: "-"
+        return "${task.shortName} | $status | ${task.date} ${task.startTime} | duration ${task.durationHours}h | diff ${task.difficulty} | loc $loc"
+    }
+
+    private fun statusLabel(id: Int): String {
+        return when (id) {
+            StatusDefaults.EXPIRED -> "expired"
+            StatusDefaults.IN_PROGRESS -> "in-progress"
+            StatusDefaults.RECORDED -> "recorded"
+            StatusDefaults.COMPLETED -> "completed"
+            else -> "unknown"
         }
     }
 }
