@@ -16,8 +16,11 @@ import com.example.dailytasks.data.TaskEntity
 import com.example.dailytasks.data.TaskRepository
 import com.example.dailytasks.databinding.ActivityTaskListBinding
 import com.example.dailytasks.databinding.ItemTaskBinding
+import com.example.dailytasks.provider.TaskContract
 import kotlinx.coroutines.launch
 import java.io.File
+import android.content.ContentValues
+import java.time.format.DateTimeFormatter
 
 class TaskListActivity : AppCompatActivity() {
 
@@ -38,6 +41,7 @@ class TaskListActivity : AppCompatActivity() {
         binding.recyclerView.adapter = adapter
 
         setupExport()
+        setupProviderTests()
         loadTasks()
     }
 
@@ -61,7 +65,9 @@ class TaskListActivity : AppCompatActivity() {
                     Toast.makeText(this@TaskListActivity, getString(R.string.export_empty), Toast.LENGTH_SHORT).show()
                     return@launch
                 }
-                val dir = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) ?: filesDir
+                val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                dir?.mkdirs()
+                val targetDir = dir ?: filesDir
                 val file = File(dir, "pending_${System.currentTimeMillis()}.txt")
                 runCatching {
                     file.printWriter().use { out ->
@@ -78,10 +84,35 @@ class TaskListActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupProviderTests() {
+        binding.providerInsertButton.setOnClickListener {
+            val cv = ContentValues().apply {
+                put("shortName", "Provider task")
+                put("description", "Inserted via ContentProvider")
+                put("difficulty", 3)
+                put("date", java.time.LocalDate.now().toString())
+                put("startTime", java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm")))
+                put("durationHours", 1)
+                put("statusId", StatusDefaults.RECORDED)
+                put("location", "provider test loc")
+            }
+            contentResolver.insert(TaskContract.TASKS_URI, cv)
+            loadTasks()
+            Toast.makeText(this, "Inserted via provider", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.providerQueryButton.setOnClickListener {
+            contentResolver.query(TaskContract.TASKS_URI, null, null, null, null)?.use { cursor ->
+                Toast.makeText(this, "Provider rows: ${cursor.count}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     private fun formatTaskLine(task: TaskEntity): String {
         val status = statusLabel(task.statusId)
         val loc = task.location ?: "-"
-        return "${task.shortName} | $status | ${task.date} ${task.startTime} | duration ${task.durationHours}h | diff ${task.difficulty} | loc $loc"
+        val desc = task.description
+        return "id ${task.uid} | ${task.shortName} | $status | ${task.date} ${task.startTime} | duration ${task.durationHours}h | diff ${task.difficulty} | loc $loc | desc $desc"
     }
 
     private fun statusLabel(id: Int): String {
