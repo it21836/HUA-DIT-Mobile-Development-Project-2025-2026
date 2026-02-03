@@ -24,5 +24,6 @@
     <string name="export_error">Export failed</string>
     <string name="provider_insert">Provider insert</string>
     <string name="provider_query">Provider query</string>
+    <string name="run_refresh">Refresh statuses</string>
 </resources>
 

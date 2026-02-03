@@ -1,6 +1,7 @@
 package com.example.dailytasks.work
 
 import android.content.Context
+import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.example.dailytasks.data.AppDatabase
@@ -20,6 +21,7 @@ class StatusUpdateWorker(
     private val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
 
     override suspend fun doWork(): Result {
+        Log.d("StatusUpdateWorker", "StatusUpdateWorker ran")
         val today = LocalDate.now()
 
         // Purge old tasks

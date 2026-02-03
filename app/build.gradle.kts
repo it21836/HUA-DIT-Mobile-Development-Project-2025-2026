@@ -4,6 +4,8 @@ plugins {
     id("kotlin-kapt")
 }
 
+buildDir = file("../build-app")
+
 android {
     namespace = "com.example.dailytasks"
     compileSdk = 34

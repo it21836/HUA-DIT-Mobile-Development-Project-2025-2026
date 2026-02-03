@@ -17,6 +17,10 @@
             android:textAppearance="?attr/textAppearanceHeadline5"
             android:paddingBottom="12dp" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Default duration (hours)" />
         <EditText
             android:id="@+id/defaultDurationInput"
             android:layout_width="match_parent"
@@ -24,6 +28,11 @@
             android:hint="@string/default_duration_hint"
             android:inputType="number" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Default difficulty (0-10)"
+            android:layout_marginTop="8dp" />
         <EditText
             android:id="@+id/defaultDifficultyInput"
             android:layout_width="match_parent"

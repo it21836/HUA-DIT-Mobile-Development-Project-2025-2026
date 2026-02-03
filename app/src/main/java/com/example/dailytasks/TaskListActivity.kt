@@ -11,12 +11,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.example.dailytasks.data.StatusDefaults
 import com.example.dailytasks.data.TaskEntity
 import com.example.dailytasks.data.TaskRepository
 import com.example.dailytasks.databinding.ActivityTaskListBinding
 import com.example.dailytasks.databinding.ItemTaskBinding
 import com.example.dailytasks.provider.TaskContract
+import com.example.dailytasks.work.StatusUpdateWorker
 import kotlinx.coroutines.launch
 import java.io.File
 import android.content.ContentValues
@@ -41,6 +44,7 @@ class TaskListActivity : AppCompatActivity() {
         binding.recyclerView.adapter = adapter
 
         setupExport()
+        setupRefresh()
         setupProviderTests()
         loadTasks()
     }
@@ -81,6 +85,14 @@ class TaskListActivity : AppCompatActivity() {
                     Toast.makeText(this@TaskListActivity, getString(R.string.export_error), Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+    }
+
+    private fun setupRefresh() {
+        binding.refreshButton.setOnClickListener {
+            val request = OneTimeWorkRequestBuilder<StatusUpdateWorker>().build()
+            WorkManager.getInstance(this).enqueue(request)
+            Toast.makeText(this, "Refresh scheduled", Toast.LENGTH_SHORT).show()
         }
     }
 

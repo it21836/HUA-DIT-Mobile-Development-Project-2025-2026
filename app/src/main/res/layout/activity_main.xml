@@ -18,6 +18,10 @@
             android:textAppearance="?attr/textAppearanceHeadline5"
             android:paddingBottom="12dp" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Short name" />
         <EditText
             android:id="@+id/shortNameInput"
             android:layout_width="match_parent"
@@ -26,6 +30,10 @@
             android:maxLength="20"
             android:inputType="textPersonName" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Description" />
         <EditText
             android:id="@+id/descriptionInput"
             android:layout_width="match_parent"
@@ -36,6 +44,10 @@
             android:gravity="top"
             android:inputType="textMultiLine" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Difficulty" />
         <EditText
             android:id="@+id/difficultyInput"
             android:layout_width="match_parent"
@@ -43,6 +55,10 @@
             android:hint="@string/difficulty_hint"
             android:inputType="number" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Duration (hours)" />
         <EditText
             android:id="@+id/durationInput"
             android:layout_width="match_parent"
@@ -78,6 +94,10 @@
                 android:text="@string/pick_time" />
         </LinearLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Location (optional)" />
         <EditText
             android:id="@+id/locationInput"
             android:layout_width="match_parent"

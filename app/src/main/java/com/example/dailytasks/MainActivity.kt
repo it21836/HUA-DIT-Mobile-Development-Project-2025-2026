@@ -130,6 +130,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        setupDefaults()
+    }
+
     private fun updateTimeLabel(time: LocalTime) {
         binding.startTimeValue.text = time.format(timeFormatter)
     }
@@ -142,7 +147,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun scheduleWorker() {
         val request = PeriodicWorkRequestBuilder<StatusUpdateWorker>(
-            1, TimeUnit.HOURS
+            15, TimeUnit.MINUTES
         ).build()
 
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(
